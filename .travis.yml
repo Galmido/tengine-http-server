@@ -10,7 +10,7 @@ env:
   matrix:
     - VERSION="2.0.3" OPTIONS="$TRAVIS_BUILD_DIR/configs/$VERSION/build.options"
 install:
-  - sudo echo "Dpkg::Options{ "--force-confold" } > /etc/apt/apt.conf.d/local
+  - sudo echo 'Dpkg::Options{ "--force-confold" }' > /etc/apt/apt.conf.d/local
   - sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
   - sudo apt-get install build-essential dpkg-dev -y --no-install-recommends
   - sudo apt-get install docker.io -y --no-install-recommends
