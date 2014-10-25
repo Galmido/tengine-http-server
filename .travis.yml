@@ -1,0 +1,23 @@
+env:
+  global:
+    - DEBIAN_DPKG="packages/debian"
+    - PACKAGES_TEMP="/tmp/packages"
+    - ARCHIVES_TEMP="/tmp/archives"
+    - REGISTRY_URL="docker.index"
+    - PROJECT_NAME="galmido-host"
+    - IMAGE_FLAVOR="http/server"
+    - IMAGE_PREFIX="tengine"
+  matrix:
+    - VERSION="2.0.3" OPTIONS="$TRAVIS_BUILD_DIR/configs/$VERSION/build.options"
+    - VERSION="2.0.4" OPTIONS="$TRAVIS_BUILD_DIR/configs/$VERSION/build.options"
+install:
+  - sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
+  - sudo apt-get install build-essential dpkg-dev -y --no-install-recommends
+  - sudo apt-get install docker.io -y --no-install-recommends
+script:
+  - mkdir -p $TEMP_PACKAGES $TEMP_ARCHIVES
+  - cd $TEMP_ARCHIVES && tar zxf "$TRAVIS_BUILD_DIR"
+  - cd "tengine-$VERSION" && ./configure `cat $OPTIONS`
+  - mv "$DEBIAN_DPKG/*" . && dpkg-build-package -un -b
+  - ls -lA && ls -lA ../
+
