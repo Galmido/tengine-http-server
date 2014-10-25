@@ -15,9 +15,11 @@ install:
   - sudo apt-get install build-essential dpkg-dev -y --no-install-recommends
   - curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 script:
-  - mkdir -p $TEMP_PACKAGES $TEMP_ARCHIVES
-  - cd $TEMP_ARCHIVES && tar zxf "$TRAVIS_BUILD_DIR"
+  - mkdir -p "$TEMP_PACKAGES" "$TEMP_ARCHIVES"
+  - cd "$TEMP_ARCHIVES" && tar zxf "$TRAVIS_BUILD_DIR"
   - cd "tengine-$VERSION" && ./configure `cat $OPTIONS`
   - mv "$DEBIAN_DPKG/*" . && dpkg-build-package -un -b
-  - ls -lA && ls -lA ../
+  - ls -lA
+  - ls -lA
+  - docker version
 
