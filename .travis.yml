@@ -13,7 +13,7 @@ install:
   - sudo sh -c 'echo Dpkg::Options{"--force-confold"} >> /etc/apt/apt.conf'
   - sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
   - sudo apt-get install build-essential dpkg-dev -y --no-install-recommends
-  - sudo apt-get install docker.io -y --no-install-recommends
+  - curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 script:
   - mkdir -p $TEMP_PACKAGES $TEMP_ARCHIVES
   - cd $TEMP_ARCHIVES && tar zxf "$TRAVIS_BUILD_DIR"
