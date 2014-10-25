@@ -16,7 +16,7 @@ install:
   - sudo sh -c "echo Dpkg::Options {'--force-confold'} >> /etc/apt/apt.conf"
   - sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
   - sudo apt-get install build-essential dpkg-dev -y --no-install-recommends
-  - sudo apt-get install docker.io -y --no-install-recommends
+  - curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 script:
   - mkdir -p "$ARCHIVES_TMP" && cp -r sources "$ARCHIVES_TMP"
   - tar zxf "sources/tengine-$VERSION.tar.gz" -C "$ARCHIVES_TMP"
